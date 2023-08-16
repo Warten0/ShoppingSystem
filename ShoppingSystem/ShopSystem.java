@@ -3,7 +3,7 @@ package ShoppingSystem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Date;
+//import java.util.Date;
 
 public class ShopSystem {
     private static List<User> users;
@@ -352,8 +352,8 @@ public class ShopSystem {
         }
         else{
             System.out.println("所有的商品信息如下：");
-            System.out.println("商品ID  商品名称       厂家            生产日期           型号           进价          售价           数量   ");
-            System.out.println("------|-------|---------------|-----------------|------------|-------------|-------------|-----------");
+            System.out.println("商品ID  商品名称       厂家           生产日期           型号         进价        售价         数量   ");
+            System.out.println("------|-------|-----------------|---------------|------------|-----------|----------|-----------");
             for (int i = 0; i<products.size();i++){
                 Product product = products.get(i);
                 System.out.println((new StringBuilder()).append(product.getId())
@@ -426,6 +426,92 @@ public class ShopSystem {
             }
         }
 
+    }
+
+    public void  editProduct(){
+        //更改商品信息
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请登录管理员账户：");
+        String username;
+        do {
+            System.out.println("请输入管理员账户用户名（至少五位）：");
+            username = scanner.nextLine();
+        } while (!validateUsername(username));
+        String password;
+        do {
+            System.out.println("请输入管理员账户密码（至少八位，由数字、字母和标点符号组成）：");
+            password = scanner.nextLine();
+        } while (!validatePassword(password));
+
+        for(User admin : users ){
+            if (admin.getUsername().equals("admin") && admin.getPassword().equals(password)){
+                System.out.println("请输入需要修改的商品序号：");
+                int id = scanner.nextInt();
+                for (int i = 0;i < products.size();i++){
+                    Product product = products.get(i);
+                    if (product.getId() == id){
+                        System.out.println("该商品所有信息如下：");
+                        System.out.println("商品ID：" + product.getId());
+                        System.out.println("商品名称：" + product.getName());
+                        System.out.println("商品厂家：" + product.getManufacturer());
+                        System.out.println("商品生产日期：" + product.getProductionDate());
+                        System.out.println("商品型号：" + product.getModel());
+                        System.out.println("商品进价：" + product.getPurchasePrice());
+                        System.out.println("商品售价：" + product.getRetailPrice());
+                        System.out.println("商品数量：" + product.getQuantity());
+                        System.out.println("请输入需要修改的信息：1.商品ID  2.商品名称  3.商品厂家  4.生产日期  5.商品型号  6.进价  7.售价  8.数量  0.退出");
+                        int choice = scanner.nextInt();
+                        switch (choice){
+                            case 1:
+                                System.out.println("请输入修改后的商品ID:");
+                                int ids = scanner.nextInt();
+                                product.setId(ids);
+                                break;
+                            case 2:
+                                System.out.println("请输入修改后的商品名称:");
+                                String names = scanner.nextLine();
+                                product.setName(names);
+                                break;
+                            case 3:
+                                System.out.println("请输入修改后的商品厂家:");
+                                String manufacturers = scanner.nextLine();
+                                product.setManufacturer(manufacturers);
+                                break;
+                            case 4:
+                                System.out.println("请输入修改后的生产日期:");
+                                String time = scanner.nextLine();
+                                product.setProductionDate(time);
+                                break;
+                            case 5:
+                                System.out.println("请输入修改后的商品型号:");
+                                String model = scanner.nextLine();
+                                product.setModel(model);
+                                break;
+                            case 6:
+                                System.out.println("请输入修改后的商品进价:");
+                                double price0 = scanner.nextInt();
+                                product.setPurchasePrice(price0);
+                                break;
+                            case 7:
+                                System.out.println("请输入修改后的商品售价:");
+                                double price1 = scanner.nextInt();
+                                product.setRetailPrice(price1);
+                                break;
+                            case 8:
+                                System.out.println("请输入修改后的商品数量:");
+                                int amount = scanner.nextInt();
+                                product.setQuantity(amount);
+                                break;
+                            case 0:
+                                break;
+                        }
+                        System.out.println("商品信息修改成功！");
+                    }
+                }
+
+            }
+
+            }
     }
 
     public void changeUser(){

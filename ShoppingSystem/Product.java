@@ -21,24 +21,48 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public void setId(int ID){
+        id = ID;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setName(String Name){
+        name = Name;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setManufacturer(String Manufacturer){
+        manufacturer = Manufacturer;
+    }
+
     public String getManufacturer(){
         return manufacturer;
+    }
+
+    public void setProductionDate(String data){
+        productionDate = data;
     }
 
     public String getProductionDate(){
         return productionDate;
     }
 
+    public void setModel(String Model){
+        model = Model;
+    }
+
     public String getModel(){
         return model;
+    }
+
+    public void setPurchasePrice(double PurchasePrice){
+        purchasePrice = PurchasePrice;
     }
 
     public double getPurchasePrice(){
@@ -51,6 +75,10 @@ public class Product {
 
     public void setQuantity(int i) {
         quantity = i;
+    }
+
+    public void setRetailPrice(double RetailPrice){
+        retailPrice = RetailPrice;
     }
 
     public double getRetailPrice(){
