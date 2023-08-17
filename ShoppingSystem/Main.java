@@ -1,11 +1,11 @@
 package ShoppingSystem;
 
 //import jdk.internal.org.objectweb.asm.tree.InsnList;
-//import javax.swing.*;
-//import java.util.ArrayList;
-//import java.util.List;
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-//import java.util.regex.Pattern;
+import java.util.regex.Pattern;
 import static ShoppingSystem.ShopSystem.removeProductFromCart;
 
 class Main {
@@ -51,13 +51,16 @@ class Main {
                         break;
                     case 2:  //显示用户信息
                         shoppingSystem.UserImagination();
-                        System.out.println("请选择你的操作:1.修改用户信息  2.查询用户信息： 0.退出");
+                        System.out.println("请选择你的操作:1.修改用户信息  2.查询用户信息  3.添加新用户  0.退出");
                         int message = scanner.nextInt();
                         if (message == 1){
                             shoppingSystem.changeUser();
                         }
                         if (message == 2)
                             shoppingSystem.inquire();
+                        if (message == 3){
+                            shoppingSystem.addUser();
+                        }
                         if (message == 0)
                             break;
                         break;

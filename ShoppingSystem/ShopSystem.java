@@ -3,7 +3,7 @@ package ShoppingSystem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-//import java.util.Date;
+import java.util.Date;
 
 public class ShopSystem {
     private static List<User> users;
@@ -15,11 +15,17 @@ public class ShopSystem {
         products.add(product);
     }
 
+    public  static  void addUser(User user){
+        System.out.println("新用户已添加！");
+        users.add(user);
+    }
+
     public static List<Product> getProducts() {
         return products;
     }
 
     public static void removeProduct(ShoppingCartItem product) {
+
         shoppingCart.remove(product);
     }
 
@@ -199,22 +205,62 @@ public class ShopSystem {
             return 0;
     }
 
+    public void addNewUser(){
+        Scanner scanner = new Scanner(System.in);
+        int id = users.size()+1;
+        String name;
+        do {
+            System.out.println("请输入用户名（至少五位）：");
+
+            name = scanner.nextLine();
+        } while (!validateUsername(name));
+
+        String password;
+        do {
+            System.out.println("请输入密码（至少八位，由数字、字母和标点符号组成）：");
+            password = scanner.nextLine();
+        } while (!validatePassword(password));
+        System.out.println("请输入你的注册时间，格式为：年-月-日！");
+        String time = scanner.nextLine();
+        System.out.println("请输入你的消费金额：");
+        String level;
+        double money = scanner.nextDouble();
+        if (money<=2000){
+            level = "铜牌客户";
+        }else if (money<=4000){
+            level = "银牌客户";
+        }
+        else {
+            level = "金牌客户";
+        }
+        scanner.nextLine();
+        System.out.println("请输入你的手机号：");
+        String phone = scanner.nextLine();
+        System.out.println("请输入你的邮箱：");
+        String mail = scanner.nextLine();
+        User user0 = new User(id,name,password,time,level,money,phone,mail);
+        addUser(user0);
+        scanner.close();
+    }
+
     public void addNewProduct(){
         //增加新商品
+
         Scanner scanner = new Scanner(System.in);
         int id  = products.size()+1;
         System.out.println("请输入商品名称：");
-        String productName = scanner.next();
+        String productName = scanner.nextLine();
         System.out.println("请输入商品进价：");
         double puprice = scanner.nextDouble();
         System.out.println("请输入商品售价：");
         double productPrice = scanner.nextDouble();
+        scanner.nextLine();
         System.out.println("请输入商品厂家：");
-        String manufacturer = scanner.next();
+        String manufacturer = scanner.nextLine();
         System.out.println("请输入商品生产日期：");
-        String data = scanner.next();
+        String data = scanner.nextLine();
         System.out.println("请输入商品型号：");
-        String model = scanner.next();
+        String model = scanner.nextLine();
         System.out.println("请输入商品数量：");
         int amount = scanner.nextInt();
         Product customProduct = new Product(id,productName,manufacturer,data,model,puprice,productPrice,amount);
@@ -366,6 +412,28 @@ public class ShopSystem {
         }
     }
 
+    public void addUser(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("添加新的商品需要登录管理员账户！");
+        System.out.println("请登录管理员账户：");
+        String username;
+        do {
+            System.out.println("请输入管理员账户用户名（至少五位）：");
+            username = scanner.nextLine();
+        } while (!validateUsername(username));
+        String password;
+        do {
+            System.out.println("请输入管理员账户密码（至少八位，由数字、字母和标点符号组成）：");
+            password = scanner.nextLine();
+        } while (!validatePassword(password));
+        for (User admin : users ){
+            if (admin.getUsername().equals("admin") && admin.getPassword().equals(password)){
+                addNewUser();
+                break;
+            }
+        }
+    }
+
     public void changeProduct(){
         // 增加新商品
         Scanner scanner = new Scanner(System.in);
@@ -461,6 +529,7 @@ public class ShopSystem {
                         System.out.println("商品数量：" + product.getQuantity());
                         System.out.println("请输入需要修改的信息：1.商品ID  2.商品名称  3.商品厂家  4.生产日期  5.商品型号  6.进价  7.售价  8.数量  0.退出");
                         int choice = scanner.nextInt();
+                        scanner.nextLine();
                         switch (choice){
                             case 1:
                                 System.out.println("请输入修改后的商品ID:");
@@ -576,7 +645,7 @@ public class ShopSystem {
                                 else {
                                     System.out.println("未找到该用户！");
                                 }
-                                //break;
+                                break;
                             }
                             if (delete == 0)
                                 break;
